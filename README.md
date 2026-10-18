@@ -262,7 +262,7 @@ node-level suites.
 
 ```bash
 # ROS-free core suites (fast).
-ctest --test-dir build --output-on-failure
+ctest --test-dir core/build --output-on-failure
 
 # Full ROS 2 suite.
 colcon test --event-handlers console_direct+
@@ -278,15 +278,20 @@ colcon test-result --all --verbose
 - **ros-humble** builds the workspace inside the official `ros:humble-ros-base`
   image with `colcon build` and runs `colcon test`, validating the package
   layout and the node tests against the real Humble release.
-- **lint** runs `cpplint` against the Google C++ Style Guide.
+- **lint** runs `ament_cpplint` over `src`. That is cpplint configured for the
+  ROS 2 style guide; upstream cpplint enforces Google's K&R braces and reports
+  hundreds of false positives against this tree.
 
 ## Repository layout
 
 ```
 .
-├── CMakeLists.txt              # ROS-free core build (colcon ignores this file)
-├── cmake/core_tests.cmake      # Core libraries and GoogleTest targets
+├── core/                       # ROS-free build of the algorithm cores
+│   ├── CMakeLists.txt          # Entry point for the core build
+│   ├── COLCON_IGNORE           # Keeps colcon from treating core/ as a package
+│   └── cmake/core_tests.cmake  # Core libraries and GoogleTest targets
 ├── .github/workflows/ci.yml    # CI pipeline
+├── AGENTS.md                   # Repo conventions and gotchas
 ├── scripts/
 │   ├── install_dependencies.sh # Apt dependencies, ROS 2 Humble included
 │   ├── setup_vcan.sh           # Creates and brings up vcan0
