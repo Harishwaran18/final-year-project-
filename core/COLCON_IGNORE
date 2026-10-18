@@ -1,0 +1,2 @@
+# This directory holds the ROS-free core build. It is not a ROS 2 package; the
+# marker below keeps colcon from trying to build it as one.

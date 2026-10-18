@@ -1,0 +1,34 @@
+# Sensor fusion parameters: ROI, ground removal, clustering and the EKF tracker.
+#
+# The 18 ms cycle budget in the requirements is enforced by test_fusion_latency,
+# so these values are chosen for accuracy within that budget rather than tuned
+# per scenario.
+
+sil_sensor_fusion:
+  ros__parameters:
+    # Region of interest in the ego frame [m].
+    min_range: 1.5
+    max_range: 80.0
+    min_height: -1.8
+    max_height: 3.0
+
+    # Ground plane removal.
+    ground_distance_threshold: 0.12
+
+    # Euclidean clustering.
+    cluster_tolerance: 0.65
+    min_cluster_size: 8
+    max_cluster_size: 4000
+
+    # EKF: constant-velocity model, range/bearing measurements.
+    process_noise_std: 1.5
+    range_noise_std: 0.25
+    bearing_noise_std: 0.02
+    # Chi-square gate for 2 DOF at 99%: 9.2103.
+    association_gate: 9.2103
+
+    # A tentative track needs this many hits before it is published.
+    confirm_hits: 3
+
+    use_camera_observations: true
+    publish_markers: true

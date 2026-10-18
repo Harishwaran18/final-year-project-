@@ -1,0 +1,31 @@
+# CARLA bridge parameters.
+#
+# synthesis_mode: true turns the actor list into a synthetic LiDAR sweep and
+# camera detections, so the SIL stack runs with no simulator attached. Set it to
+# false to relay a real CARLA instance's own sensor topics.
+
+sil_carla_bridge:
+  ros__parameters:
+    synthesis_mode: true
+    output_frame_id: base_link
+
+    # LiDAR model. 32 channels x 1024 azimuth samples matches the HDL-32E class
+    # of sensor CARLA configures by default.
+    lidar_channels: 32
+    lidar_azimuth_samples: 1024
+    lidar_max_range: 80.0
+    # Small range noise keeps replays realistic without making them
+    # non-deterministic across runs of the same scenario.
+    lidar_range_noise_std: 0.02
+    lidar_mount_height: 1.8
+
+    # Forward-facing pinhole camera.
+    camera_fov_horizontal: 1.5708
+    camera_image_width: 1280
+    camera_image_height: 720
+    camera_fx: 1100.0
+    camera_fy: 1100.0
+
+    # Actors closer than this are inside the ego footprint and are dropped.
+    min_actor_range: 1.5
+    publish_ego_speed: true

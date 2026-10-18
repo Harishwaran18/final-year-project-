@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Fast, ROS-free feedback. Builds the numerical core and runs every GoogleTest
+  # suite. This is the job that catches EKF/TTC/CAN-codec regressions, and it
+  # needs no ROS 2 installation so it finishes in a couple of minutes.
+  # ---------------------------------------------------------------------------
+  core-tests:
+    name: Core tests (no ROS)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build \
+            libeigen3-dev libpcl-dev libgtest-dev
+
+      - name: Configure
+        run: cmake -S core -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+
+  # ---------------------------------------------------------------------------
+  # Full ROS 2 Humble workspace build. Runs in the official ROS image so the
+  # package.xml/CMakeLists.xml layout and the ROS-side node tests are validated
+  # against the real Humble release.
+  # ---------------------------------------------------------------------------
+  ros-humble:
+    name: ROS 2 Humble (colcon build + test)
+    runs-on: ubuntu-22.04
+    container:
+      image: ros:humble-ros-base
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            python3-colcon-common-extensions \
+            ros-humble-ament-cmake-gtest \
+            ros-humble-ament-lint-auto ros-humble-ament-lint-common \
+            ros-humble-pcl-conversions \
+            libpcl-dev libeigen3-dev libopencv-dev \
+            can-utils iproute2
+
+      - name: Install rosdep dependencies
+        run: |
+          rosdep update --rosdistro humble
+          rosdep install --from-paths src --ignore-src -y --rosdistro humble
+
+      - name: Build
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Test
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon test --event-handlers console_direct+ --return-code-on-test-failure
+          colcon test-result --all --verbose
+
+  # ---------------------------------------------------------------------------
+  # Static analysis. cpplint enforces the Google C++ Style Guide, which is the
+  # style the codebase is written to.
+  # ---------------------------------------------------------------------------
+  lint:
+    name: Lint (cpplint)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install cpplint
+        run: pip install cpplint
+
+      - name: Run cpplint
+        run: |
+          cpplint --recursive \
+            --filter=-legal/copyright,-build/include_subdir,-whitespace/line_length \
+            --extensions=hpp,cpp \
+            src

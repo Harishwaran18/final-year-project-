@@ -1,0 +1,35 @@
+# AEB controller parameters.
+#
+# Escalation thresholds are the TTC values at which the FSM moves up a state:
+#
+#   NORMAL -> FORWARD_COLLISION_WARNING -> PARTIAL_BRAKING -> FULL_EMERGENCY_BRAKE
+#
+# Escalation is immediate; de-escalation waits for release_ttc_margin and
+# min_state_duration, which is what stops the state oscillating on a threshold.
+
+sil_aeb_controller:
+  ros__parameters:
+    loop_rate_hz: 50.0
+
+    warning_ttc: 2.5
+    partial_braking_ttc: 1.6
+    full_braking_ttc: 0.8
+
+    release_ttc_margin: 0.4
+    min_state_duration: 0.4
+
+    # Geometry gates.
+    min_closing_speed: 1.0
+    lane_half_width: 2.0
+    max_detection_range: 80.0
+    emergency_distance: 4.0
+    standstill_gap: 2.0
+
+    # Actuator model.
+    reaction_time: 0.15
+    partial_deceleration: 3.5
+    full_deceleration: 9.0
+    max_deceleration: 9.5
+
+    # Drop stale tracks so a dead fusion node cannot hold the brakes on.
+    obstacle_timeout: 0.5
