@@ -1,10 +1,9 @@
 // Copyright 2026 SIL AEB Maintainers
 // SPDX-License-Identifier: Apache-2.0
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <memory>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_can_gateway/can_gateway_node.hpp"
 
 int main(int argc, char ** argv)

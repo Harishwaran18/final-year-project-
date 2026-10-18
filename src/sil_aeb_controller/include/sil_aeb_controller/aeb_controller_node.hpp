@@ -4,12 +4,11 @@
 #ifndef SIL_AEB_CONTROLLER__AEB_CONTROLLER_NODE_HPP_
 #define SIL_AEB_CONTROLLER__AEB_CONTROLLER_NODE_HPP_
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <cstdint>
 #include <memory>
 #include <mutex>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_aeb_controller/aeb_fsm.hpp"
 #include "sil_interfaces/msg/obstacle_array.hpp"
 #include "sil_interfaces/msg/safety_alert.hpp"

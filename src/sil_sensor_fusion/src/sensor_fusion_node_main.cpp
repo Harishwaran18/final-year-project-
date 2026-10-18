@@ -1,10 +1,9 @@
 // Copyright 2026 SIL AEB Maintainers
 // SPDX-License-Identifier: Apache-2.0
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <memory>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_sensor_fusion/sensor_fusion_node.hpp"
 
 int main(int argc, char ** argv)

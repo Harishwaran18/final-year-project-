@@ -3,15 +3,14 @@
 
 #include <gtest/gtest.h>
 
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
-
 #include <chrono>
 #include <cstdint>
 #include <memory>
 #include <string>
 #include <thread>
 
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include "sil_carla_bridge/carla_bridge_node.hpp"
 #include "sil_interfaces/msg/carla_actor.hpp"
 #include "sil_interfaces/msg/carla_actor_array.hpp"

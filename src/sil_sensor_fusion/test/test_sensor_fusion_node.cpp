@@ -2,12 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <gtest/gtest.h>
-
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
 
 #include <chrono>
 #include <cstdint>
@@ -15,6 +12,8 @@
 #include <string>
 #include <thread>
 
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include "sil_interfaces/msg/detection2_d.hpp"
 #include "sil_interfaces/msg/detection2_d_array.hpp"
 #include "sil_interfaces/msg/obstacle_array.hpp"

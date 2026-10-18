@@ -82,25 +82,26 @@ jobs:
           colcon test-result --all --verbose
 
   # ---------------------------------------------------------------------------
-  # Static analysis. cpplint enforces the Google C++ Style Guide, which is the
-  # style the codebase is written to.
+  # Static analysis. ament_cpplint is cpplint configured for the ROS 2 style
+  # guide (Allman braces, 100-column limit), which is the style this codebase
+  # follows. Raw upstream cpplint enforces Google's K&R braces instead and
+  # reports hundreds of false positives, so it is deliberately not used here.
   # ---------------------------------------------------------------------------
   lint:
-    name: Lint (cpplint)
+    name: Lint (ament_cpplint)
     runs-on: ubuntu-22.04
+    container:
+      image: ros:humble-ros-base
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install cpplint
-        run: pip install cpplint
-
-      - name: Run cpplint
+      - name: Install dependencies
         run: |
-          cpplint --recursive \
-            --filter=-legal/copyright,-build/include_subdir,-whitespace/line_length \
-            --extensions=hpp,cpp \
-            src
+          apt-get update
+          apt-get install -y --no-install-recommends ros-humble-ament-cpplint
+
+      - name: Run ament_cpplint
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          ament_cpplint src

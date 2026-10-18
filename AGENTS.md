@@ -72,6 +72,41 @@ Every node test fixture must therefore give each test case its own namespace via
 a `Isolate(NodeOptions)` helper that passes `--ros-args -r __ns:=<per-test>`.
 Without this you get flaky cross-talk failures that pass when run alone.
 
+## Style: ROS 2 guide, not Google
+
+The code is Google-*ish* C++ (naming, 2-space indent, 100 columns) but uses
+Allman braces, which is what the ROS 2 style guide and ament's uncrustify config
+require. Run the ROS-configured cpplint, not upstream cpplint:
+
+```bash
+ament_cpplint src        # exits 0; this is what CI runs
+```
+
+Upstream `cpplint` with Google's default rules reports ~600 `whitespace/braces`
+and ~40 `whitespace/indent` errors against this tree. Those are false positives
+from the brace style, not defects. If you run upstream cpplint, at minimum
+filter `-whitespace/braces,-whitespace/indent`.
+
+Include order matters to `ament_cpplint` and is checked in CI. The required
+order is: the file's own header, then C system headers, then C++ standard
+headers, then everything else (ROS/PCL/Eigen/OpenCV and project headers). Note
+this is the opposite of what you may expect: a block like
+
+```cpp
+#include <rclcpp/rclcpp.hpp>   // "other" - must come LAST
+#include <cstdint>             // C++ standard - must come before rclcpp
+```
+
+fails with `build/include_order`.
+
+## Lint wiring
+
+Only `sil_interfaces` and `sil_bringup` call
+`ament_lint_auto_find_test_dependencies()`, so those are the packages whose
+`colcon test` runs lint. The other four declare `ament_lint_auto` /
+`ament_lint_common` as test dependencies but do not invoke them; CI runs
+`ament_cpplint src` directly over the whole tree to cover everything.
+
 ## CAN protocol
 
 Two classic 8-byte frames, both CRC-8/SAE-J1850 over bytes 0..6:

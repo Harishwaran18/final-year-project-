@@ -4,12 +4,11 @@
 #ifndef SIL_CARLA_BRIDGE__SCENARIO_PUBLISHER_HPP_
 #define SIL_CARLA_BRIDGE__SCENARIO_PUBLISHER_HPP_
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <cstdint>
 #include <string>
 #include <vector>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_interfaces/msg/carla_actor.hpp"
 #include "sil_interfaces/msg/carla_actor_array.hpp"
 

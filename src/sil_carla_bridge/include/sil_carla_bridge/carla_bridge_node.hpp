@@ -4,14 +4,13 @@
 #ifndef SIL_CARLA_BRIDGE__CARLA_BRIDGE_NODE_HPP_
 #define SIL_CARLA_BRIDGE__CARLA_BRIDGE_NODE_HPP_
 
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
-
 #include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include "sil_carla_bridge/frame_transform.hpp"
 #include "sil_carla_bridge/lidar_synthesizer.hpp"
 #include "sil_interfaces/msg/carla_actor_array.hpp"

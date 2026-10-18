@@ -3,18 +3,17 @@
 
 #include "sil_can_gateway/socketcan_transport.hpp"
 
-#include <cerrno>
-#include <cstring>
-#include <string>
-#include <utility>
-
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
 #include <linux/can.h>
 #include <linux/can/raw.h>
+
+#include <cerrno>
+#include <cstring>
+#include <string>
+#include <utility>
 
 namespace sil_can_gateway
 {

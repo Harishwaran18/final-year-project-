@@ -4,14 +4,13 @@
 #ifndef SIL_SENSOR_FUSION__SENSOR_FUSION_NODE_HPP_
 #define SIL_SENSOR_FUSION__SENSOR_FUSION_NODE_HPP_
 
+#include <memory>
+#include <vector>
+
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <std_msgs/msg/header.hpp>
 #include <visualization_msgs/msg/marker_array.hpp>
-
-#include <memory>
-#include <vector>
-
 #include "sil_interfaces/msg/detection2_d_array.hpp"
 #include "sil_interfaces/msg/obstacle_array.hpp"
 #include "sil_sensor_fusion/camera_projection.hpp"

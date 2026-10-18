@@ -3,14 +3,13 @@
 
 #include <gtest/gtest.h>
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <chrono>
 #include <cstdint>
 #include <memory>
 #include <string>
 #include <thread>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_aeb_controller/aeb_controller_node.hpp"
 #include "sil_interfaces/msg/obstacle_array.hpp"
 #include "sil_interfaces/srv/set_aeb_state.hpp"
@@ -59,7 +58,8 @@ protected:
   }
 
   /// Spins @p node for @p duration so callbacks and timers can fire.
-  static void SpinFor(const std::shared_ptr<rclcpp::Node> & node, std::chrono::milliseconds duration)
+  static void SpinFor(
+    const std::shared_ptr<rclcpp::Node> & node, std::chrono::milliseconds duration)
   {
     const auto deadline = std::chrono::steady_clock::now() + duration;
     while (std::chrono::steady_clock::now() < deadline && rclcpp::ok()) {

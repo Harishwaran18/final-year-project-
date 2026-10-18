@@ -3,14 +3,13 @@
 
 #include <gtest/gtest.h>
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <chrono>
 #include <cstdint>
 #include <memory>
 #include <string>
 #include <thread>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_can_gateway/can_gateway_node.hpp"
 #include "sil_interfaces/msg/safety_alert.hpp"
 #include "std_msgs/msg/float32.hpp"

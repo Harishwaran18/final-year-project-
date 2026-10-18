@@ -4,13 +4,12 @@
 #ifndef SIL_CAN_GATEWAY__CAN_GATEWAY_NODE_HPP_
 #define SIL_CAN_GATEWAY__CAN_GATEWAY_NODE_HPP_
 
-#include <rclcpp/rclcpp.hpp>
-
 #include <cstdint>
 #include <memory>
 #include <mutex>
 #include <string>
 
+#include <rclcpp/rclcpp.hpp>
 #include "sil_can_gateway/can_frame_codec.hpp"
 #include "sil_can_gateway/socketcan_transport.hpp"
 #include "sil_interfaces/msg/safety_alert.hpp"

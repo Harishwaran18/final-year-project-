@@ -6,7 +6,6 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <sensor_msgs/msg/point_cloud2.hpp>
 
 #include <algorithm>
 #include <cmath>
@@ -14,6 +13,7 @@
 #include <string>
 #include <vector>
 
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include "sil_carla_bridge/frame_transform.hpp"
 
 namespace sil_carla_bridge
