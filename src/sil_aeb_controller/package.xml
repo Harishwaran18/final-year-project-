@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>sil_aeb_controller</name>
+  <version>0.1.0</version>
+  <description>
+    Autonomous Emergency Braking controller for the SIL AEB stack. Computes
+    Time-To-Collision from fused obstacle tracks and drives a four-state finite
+    state machine (NORMAL, FORWARD_COLLISION_WARNING, PARTIAL_BRAKING,
+    FULL_EMERGENCY_BRAKE).
+  </description>
+  <maintainer email="sil-aeb@example.com">SIL AEB Maintainers</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sil_interfaces</depend>
+
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

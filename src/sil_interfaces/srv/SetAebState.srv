@@ -1,0 +1,15 @@
+# Force or release the AEB FSM, used by SIL test harnesses and HIL benches.
+
+# 0 == release autonomous control, otherwise force the requested state.
+uint8 state
+
+# When true the FSM latches the requested state until released.
+bool latch
+
+---
+bool success
+
+# State the FSM reports after applying the request.
+uint8 active_state
+
+string message

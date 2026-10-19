@@ -1,0 +1,21 @@
+# CAN gateway parameters.
+#
+# dry_run: true encodes frames but does not transmit them, which is the right
+# setting on any host without a vcan0 interface. To create one:
+#
+#   sudo modprobe vcan
+#   sudo ip link add dev vcan0 type vcan
+#   sudo ip link set up vcan0
+#
+# Then set dry_run: false and inspect the traffic with `candump vcan0`.
+
+sil_can_gateway:
+  ros__parameters:
+    interface_name: vcan0
+    transmit_rate_hz: 50.0
+    # Loopback makes the kernel echo written frames back to this socket, which
+    # is what the SIL loopback check uses.
+    loopback: true
+    dry_run: true
+    # A stale alert must release the brakes rather than latch the last command.
+    alert_timeout: 0.5

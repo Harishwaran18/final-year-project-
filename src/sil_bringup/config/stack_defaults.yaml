@@ -1,0 +1,22 @@
+# Parameters shared by a sil_bringup stack launch.
+#
+# Node-specific defaults live in each package's config/ directory; this file
+# only carries the values the bringup layer has to agree on.
+
+sil_carla_bridge:
+  ros__parameters:
+    synthesis_mode: true
+    output_frame_id: base_link
+
+sil_sensor_fusion:
+  ros__parameters:
+    max_range: 80.0
+
+sil_aeb_controller:
+  ros__parameters:
+    loop_rate_hz: 50.0
+
+sil_can_gateway:
+  ros__parameters:
+    interface_name: vcan0
+    dry_run: true

@@ -1,0 +1,32 @@
+# ROS 2 / colcon build artefacts.
+build/
+install/
+log/
+
+# The ROS-free core build.
+core/build/
+core/CMakeCache.txt
+core/CMakeFiles/
+core/compile_commands.json
+core/Testing/
+
+# CMake.
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake.stamp
+
+# Editors and tooling.
+.vscode/
+.idea/
+*.swp
+compile_commands.json
+
+# Python.
+__pycache__/
+*.py[cod]
+
+# OS noise.
+.DS_Store
